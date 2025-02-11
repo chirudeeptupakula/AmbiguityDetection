@@ -1,0 +1,15 @@
+# Data Handling
+pandas
+numpy
+
+# Database Connection
+psycopg2
+sqlalchemy
+
+# Statistical Analysis
+scipy
+
+# Visualization Libraries
+matplotlib
+seaborn
+plotly

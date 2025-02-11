@@ -1,0 +1,6 @@
+dataset:
+  file_name: "data/dataset2/train.csv"  # Update this manually each time
+  sheet_name: "Sheet1"  # Update based on dataset
+  table_name: "cleaned_salary_data2"  # PostgreSQL table name
+  attributes: ["EmployeeId", "MonthlyIncome","JobRole", "TotalWorkingYears", "Gender", "Age", "Department"]  # Columns to extract
+  protected_variables: ["Gender", "Age"]  # Protected variables
