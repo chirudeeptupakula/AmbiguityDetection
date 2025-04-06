@@ -1,191 +1,149 @@
 import pandas as pd
-import psycopg2
-from sqlalchemy import create_engine
-import scipy.stats as stats
+import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+from sqlalchemy import create_engine
+import os
+import json
+import datetime
+import glob
+import sys
 
-# Database configuration
+# Clean up old visualizations
+def clean_static_folder():
+    files = glob.glob("static/visual_*.png")
+    for file in files:
+        os.remove(file)
+    if os.path.exists("static/visuals.json"):
+        os.remove("static/visuals.json")
+    if os.path.exists("static/samples"):
+        for f in glob.glob("static/samples/*.csv"):
+            os.remove(f)
+    else:
+        os.makedirs("static/samples")
+
+clean_static_folder()
+
+# Database Configuration
 db_config = {
-    'user': 'postgres',       # Replace with your PostgreSQL username
-    'password': '1234',       # Replace with your PostgreSQL password
+    'user': 'postgres',
+    'password': '1234',
     'host': 'localhost',
     'port': 5432,
-    'database': 'etl_pipeline_db'  # Replace with your PostgreSQL database name
+    'database': 'etl_pipeline_db'
 }
 
-# Establish connection to PostgreSQL
 engine = create_engine(
     f"postgresql://{db_config['user']}:{db_config['password']}@{db_config['host']}:{db_config['port']}/{db_config['database']}"
 )
 
-# Load data into DataFrame
-df = pd.read_sql("SELECT * FROM cleaned_salary_data;", engine)
+# Load Data
+table_name = "cleaned_salary_data2"
+with engine.connect() as conn:
+    df = pd.read_sql(f"SELECT * FROM {table_name};", conn)
 
-# Preview dataset
-print("\n📊 Data Preview:")
-print(df.head())
+required_columns = {"Gender", "TotalWorkingYears", "Age", "MonthlyIncome", "EmployeeID"}
+if not required_columns.issubset(df.columns):
+    raise ValueError("Dataset is missing required columns.")
 
-# --------------------------------------------
-#  MEAN SALARY CALCULATION (Using MonthlyIncome)
-# --------------------------------------------
-def calculate_mean_salary(df, group_column):
-    mean_salary = df.groupby(group_column)['MonthlyIncome'].mean()
-    print(f"\n📊 Mean Monthly Income by {group_column}:\n{mean_salary}\n")
-    return mean_salary
+output_dir = "static"
+os.makedirs(output_dir, exist_ok=True)
+sample_dir = os.path.join(output_dir, "samples")
+os.makedirs(sample_dir, exist_ok=True)
 
-# Calculate mean salary by Gender
-calculate_mean_salary(df, "Gender")
+# Sample generation: no repeated employees
+def generate_random_sample(df, used_ids, sample_size):
+    remaining_df = df[~df["EmployeeID"].isin(used_ids)]
+    males = remaining_df[remaining_df["Gender"] == "Male"]
+    females = remaining_df[remaining_df["Gender"] == "Female"]
 
-# --------------------------------------------
-# PERFORM T-TEST (COMPARE SALARIES)
-# --------------------------------------------
-def perform_t_test(df, group_column, group1, group2):
-    group1_salary = df[df[group_column] == group1]["MonthlyIncome"]
-    group2_salary = df[df[group_column] == group2]["MonthlyIncome"]
+    if len(males) < sample_size or len(females) < sample_size:
+        raise ValueError("Not enough unique samples left.")
 
-    t_stat, p_value = stats.ttest_ind(group1_salary, group2_salary, equal_var=False)
+    male_sample = males.sample(n=sample_size, replace=False)
+    female_sample = females.sample(n=sample_size, replace=False)
 
-    print(f"\n📈 T-Test Results ({group1} vs {group2}):")
-    print(f"  - t-statistic: {t_stat:.4f}")
-    print(f"  - p-value: {p_value:.4f}")
+    used_ids.update(male_sample["EmployeeID"].tolist())
+    used_ids.update(female_sample["EmployeeID"].tolist())
 
-    # Interpretation
-    if p_value < 0.05:
-        print("  🔴 Statistically Significant Difference (p < 0.05) 🚨")
-    else:
-        print("  🟢 No Statistically Significant Difference (p ≥ 0.05) ✅")
+    return male_sample, female_sample
 
-# Perform t-test for MonthlyIncome between Male vs Female
-perform_t_test(df, "Gender", "Male", "Female")
+def plot_abstract_visualization(male_sample, female_sample, image_path):
+    fig, (ax1, ax2) = plt.subplots(1, 2, sharey=True, figsize=(14, 6), constrained_layout=True)
 
-# --------------------------------------------
-# SALARY DISTRIBUTION VISUALIZATION
-# --------------------------------------------
+    salary_scale_factor = 0.20
+    min_size = 500
+    male_sizes = np.maximum(male_sample["MonthlyIncome"] * salary_scale_factor, min_size)
+    female_sizes = np.maximum(female_sample["MonthlyIncome"] * salary_scale_factor, min_size)
 
-# 📊 Histogram (MonthlyIncome Distribution by Gender)
-# 📊 Fixed Histogram (MonthlyIncome Distribution by Gender)
-def plot_salary_distribution(df, group_column):
-    plt.figure(figsize=(10, 6))
+    jitter_y_male = np.random.uniform(-0.3, 0.3, size=len(male_sample))
+    jitter_y_female = np.random.uniform(-0.3, 0.3, size=len(female_sample))
 
-    # KDE Plot Instead of Histogram (Less Cluttered)
-    sns.histplot(data=df, x="MonthlyIncome", hue=group_column, kde=True, bins=15, alpha=0.5)
+    ax1.scatter(
+        male_sample["TotalWorkingYears"],
+        male_sample["Age"] + jitter_y_male,
+        s=male_sizes,
+        alpha=0.8,
+        c="blue",
+        edgecolors='black',
+        linewidth=1.5
+    )
+    ax1.set_xlim(-5, 65)
+    ax1.set_xticks([])
+    ax1.set_yticks([])
+    for spine in ax1.spines.values():
+        spine.set_visible(False)
 
-    plt.title(f'Monthly Income Distribution by {group_column}')
-    plt.xlabel("Monthly Income")
-    plt.ylabel("Count")
-    plt.grid(True)
-    plt.show()
+    ax2.scatter(
+        female_sample["TotalWorkingYears"],
+        female_sample["Age"] + jitter_y_female,
+        s=female_sizes,
+        alpha=0.8,
+        c="red",
+        edgecolors='black',
+        linewidth=1.5
+    )
+    ax2.set_xlim(-5, 65)
+    ax2.set_xticks([])
+    ax2.set_yticks([])
+    for spine in ax2.spines.values():
+        spine.set_visible(False)
 
-# Run the function
-plot_salary_distribution(df, "Gender")
+    plt.savefig(image_path, bbox_inches='tight')
+    plt.close()
 
+def save_metadata_list(metadata_list):
+    with open(os.path.join(output_dir, "visuals.json"), "w") as f:
+        json.dump(metadata_list, f, indent=4)
 
+def generate_multiple_samples(df, sample_size=7, iterations=5):
+    metadata_list = []
+    used_ids = set()
 
-# 📊 Box Plot (Compare MonthlyIncome Across Groups)
-def plot_boxplot(df, group_column):
-    plt.figure(figsize=(8, 5))
-    sns.boxplot(x=group_column, y="MonthlyIncome", data=df)
-    plt.title(f'Monthly Income Comparison by {group_column}')
-    plt.xlabel(group_column)
-    plt.ylabel("Monthly Income")
-    plt.show()
+    for i in range(iterations):
+        male_sample, female_sample = generate_random_sample(df, used_ids, sample_size)
 
-plot_boxplot(df, "Gender")
+        timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+        image_name = f"visual_{timestamp}_{i+1}.png"
+        image_path = os.path.join(output_dir, image_name)
+        plot_abstract_visualization(male_sample, female_sample, image_path)
 
-# --------------------------------------------
-# Salary vs Experience (Scatter Plot)
-# --------------------------------------------
-def plot_salary_vs_experience(df):
-    plt.figure(figsize=(10, 6))
-    sns.scatterplot(x=df["TotalWorkingYears"], y=df["MonthlyIncome"], hue=df["Gender"], alpha=0.7)
-
-    plt.title("Monthly Income vs Total Working Years")
-    plt.xlabel("Total Working Years")
-    plt.ylabel("Monthly Income")
-    plt.grid(True)
-    plt.show()
-
-plot_salary_vs_experience(df)
-
-# --------------------------------------------
-# Salary vs Age (Box Plot)
-# --------------------------------------------
-def plot_salary_vs_age(df):
-    plt.figure(figsize=(10, 6))
-    sns.boxplot(x=pd.cut(df["Age"], bins=[20,30,40,50,60], labels=["20s", "30s", "40s", "50s"]), y="MonthlyIncome", data=df)
-
-    plt.title("Salary Distribution Across Different Age Groups")
-    plt.xlabel("Age Group")
-    plt.ylabel("Monthly Income")
-    plt.grid(True)
-    plt.show()
-
-plot_salary_vs_age(df)
-
-# --------------------------------------------
-# Salary Comparison by Gender (Box Plot)
-# --------------------------------------------
-def plot_salary_comparison_gender(df):
-    plt.figure(figsize=(8, 5))
-    sns.boxplot(x="Gender", y="MonthlyIncome", data=df)
-
-    plt.title("Monthly Income Distribution by Gender")
-    plt.xlabel("Gender")
-    plt.ylabel("Monthly Income")
-    plt.grid(True)
-    plt.show()
-
-plot_salary_comparison_gender(df)
-
-# --------------------------------------------
-# Correlation Heatmap (Identifies Relationships)
-# --------------------------------------------
-def plot_correlation_heatmap(df):
-    plt.figure(figsize=(10, 6))
-
-    # 🔹 Drop non-numeric columns before correlation calculation
-    numeric_df = df.select_dtypes(include=['number'])
-
-    # Compute correlation
-    correlation = numeric_df.corr()
-
-    # Plot heatmap
-    sns.heatmap(correlation, annot=True, cmap="coolwarm", linewidths=0.5)
-    plt.title("Feature Correlation Heatmap")
-    plt.show()
-
-plot_correlation_heatmap(df)
+        male_sample.to_csv(os.path.join(sample_dir, f"sample_{i+1}_male.csv"), index=False)
+        female_sample.to_csv(os.path.join(sample_dir, f"sample_{i+1}_female.csv"), index=False)
 
 
-# --------------------------------------------
-#Salary Distribution by Department (Box Plot)
-# --------------------------------------------
-def plot_salary_by_department(df):
-    plt.figure(figsize=(12, 6))
-    sns.boxplot(x="Department", y="MonthlyIncome", data=df)
-    plt.title("Salary Distribution by Department")
-    plt.xlabel("Department")
-    plt.ylabel("Monthly Income")
-    plt.xticks(rotation=45)
-    plt.grid(True)
-    plt.show()
 
-plot_salary_by_department(df)
+        metadata = {
+            "visual_path": os.path.basename(image_path),
+            "description": "Sample {} ".format(i+1),
+            "timestamp": datetime.datetime.now().isoformat()
+        }
+        metadata_list.append(metadata)
+        print(f"✅ Generated Sample {i+1} → {image_path}")
 
-# --------------------------------------------
-# Salary Growth Over Experience (Line Plot)
-# --------------------------------------------
-def plot_salary_growth(df):
-    plt.figure(figsize=(10, 6))
-    sns.lineplot(x="TotalWorkingYears", y="MonthlyIncome", data=df, ci=None)
-    plt.title("Salary Growth Over Experience")
-    plt.xlabel("Total Working Years")
-    plt.ylabel("Monthly Income")
-    plt.grid(True)
-    plt.show()
+    save_metadata_list(metadata_list)
 
-plot_salary_growth(df)
+def main(sample_size, sample_count):
+    generate_multiple_samples(df, sample_size=sample_size, iterations=sample_count)
 
 
-print("\n✅ All Graphs Generated Successfully!")
