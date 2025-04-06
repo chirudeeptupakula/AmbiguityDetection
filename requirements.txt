@@ -13,3 +13,7 @@ scipy
 matplotlib
 seaborn
 plotly
+
+flask
+flask_sqlalchemy
+flask_bcrypt

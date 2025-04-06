@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Salary Visualization</title>
+    <style>
+        body {
+          font-family: sans-serif;
+          padding: 20px;
+          margin: 0;
+          background: #f0f2f5;
+        }
+
+        h1 {
+          text-align: center;
+          margin-bottom: 40px;
+        }
+
+        .container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 30px;
+          width: 100%;
+        }
+
+        .card {
+          width: 90%;
+          max-width: 500px;
+          border: 2px solid #ccc;
+          border-radius: 10px;
+          padding: 15px;
+          background: #fff;
+          text-align: center;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        img {
+          width: 100%;
+          border-radius: 6px;
+          margin-bottom: 10px;
+        }
+
+        p {
+          margin: 0;
+          font-weight: bold;
+        }
+
+        small {
+          color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Latest Visualizations</h1>
+<div class="container" id="visual-container"></div>
+
+<script>
+    fetch('/static/visuals.json')
+      .then(response => response.json())
+      .then(data => {
+        const container = document.getElementById("visual-container");
+        container.innerHTML = "";
+        data.forEach((item, i) => {
+          const div = document.createElement("div");
+          div.className = "card";
+          div.innerHTML = `
+            <img src="/${item.visual_path}" alt="Visual ${i+1}">
+            <p>Sample ${i + 1} - Abstract visualization</p>
+            <small>${new Date(item.timestamp).toLocaleString()}</small>
+          `;
+          container.appendChild(div);
+        });
+      });
+</script>
+
+</body>
+</html>
