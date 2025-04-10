@@ -1,15 +1,31 @@
-from app import db
+from database import Base
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, JSON
 from datetime import datetime
 
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True, nullable=False)
-    password = db.Column(db.String(120), nullable=False)
+class User(Base):
+    __tablename__ = 'users'
 
-class UserSession(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    sample_size = db.Column(db.Integer)
-    sample_count = db.Column(db.Integer)
-    responses = db.Column(db.JSON)
-    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+    id = Column(Integer, primary_key=True)
+    username = Column(String(80), unique=True, nullable=False)
+    password = Column(String(120), nullable=False)
+
+class UserSession(Base):
+    __tablename__ = 'user_sessions'
+
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    sample_size = Column(Integer)
+    sample_count = Column(Integer)
+    responses = Column(JSON)
+    timestamp = Column(DateTime, default=datetime.utcnow)
+
+class UserResponse(Base):
+    __tablename__ = 'user_responses'
+
+    id = Column(Integer, primary_key=True)
+    username = Column(String, nullable=False)
+    image_name = Column(String, nullable=False)
+    question1 = Column(String, nullable=False)
+    question2 = Column(String, nullable=False)
+    question3 = Column(String, nullable=False)
+    timestamp = Column(DateTime, default=datetime.utcnow)
