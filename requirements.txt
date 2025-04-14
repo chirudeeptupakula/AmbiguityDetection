@@ -17,8 +17,7 @@ plotly
 flask
 flask_sqlalchemy
 flask_bcrypt
-- psycopg2
-+ psycopg2-binary
+
 
 Flask
 gunicorn
