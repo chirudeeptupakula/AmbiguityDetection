@@ -1,15 +1,13 @@
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-from sqlalchemy import create_engine
 import os
 import json
 import datetime
 import glob
-import sys
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from database import engine  # ✅ use environment-based connection
 
-# Clean up old visualizations
+# 📦 Clean up old visualizations
 def clean_static_folder():
     files = glob.glob("static/visual_*.png")
     for file in files:
@@ -22,36 +20,18 @@ def clean_static_folder():
     else:
         os.makedirs("static/samples")
 
-clean_static_folder()
+# 📦 Load Data from DB inside a function (delayed execution)
+def load_data():
+    table_name = "cleaned_salary_data2"
+    with engine.connect() as conn:
+        df = pd.read_sql(f"SELECT * FROM {table_name};", conn)
 
-# Database Configuration
-db_config = {
-    'user': 'postgres',
-    'password': '1234',
-    'host': 'localhost',
-    'port': 5432,
-    'database': 'etl_pipeline_db'
-}
+    required_columns = {"Gender", "TotalWorkingYears", "Age", "MonthlyIncome", "EmployeeID"}
+    if not required_columns.issubset(df.columns):
+        raise ValueError("Dataset is missing required columns.")
+    return df
 
-engine = create_engine(
-    f"postgresql://{db_config['user']}:{db_config['password']}@{db_config['host']}:{db_config['port']}/{db_config['database']}"
-)
-
-# Load Data
-table_name = "cleaned_salary_data2"
-with engine.connect() as conn:
-    df = pd.read_sql(f"SELECT * FROM {table_name};", conn)
-
-required_columns = {"Gender", "TotalWorkingYears", "Age", "MonthlyIncome", "EmployeeID"}
-if not required_columns.issubset(df.columns):
-    raise ValueError("Dataset is missing required columns.")
-
-output_dir = "static"
-os.makedirs(output_dir, exist_ok=True)
-sample_dir = os.path.join(output_dir, "samples")
-os.makedirs(sample_dir, exist_ok=True)
-
-# Sample generation: no repeated employees
+# 📦 Sample generation: no repeated employees
 def generate_random_sample(df, used_ids, sample_size):
     remaining_df = df[~df["EmployeeID"].isin(used_ids)]
     males = remaining_df[remaining_df["Gender"] == "Male"]
@@ -67,10 +47,9 @@ def generate_random_sample(df, used_ids, sample_size):
     used_ids.update(female_sample["EmployeeID"].tolist())
 
     return male_sample, female_sample
-def plot_abstract_visualization(male_sample, female_sample, image_path):
-    import matplotlib.pyplot as plt
-    import numpy as np
 
+# 📦 Plotting
+def plot_abstract_visualization(male_sample, female_sample, image_path):
     fig, ax = plt.subplots(figsize=(12, 6))
 
     salary_scale_factor = 0.25
@@ -87,10 +66,8 @@ def plot_abstract_visualization(male_sample, female_sample, image_path):
     bright_red = "#ff4c4c"
     bright_blue = "#4da6ff"
 
-    # Offset for Group Blue so it appears to the right
-    offset = 40
+    offset = 40  # Offset for Group Blue
 
-    # Plot Group Red
     ax.scatter(
         male_sample["TotalWorkingYears"],
         male_sample["Age"] + jitter_y_male,
@@ -102,7 +79,6 @@ def plot_abstract_visualization(male_sample, female_sample, image_path):
         label='Group Red'
     )
 
-    # Plot Group Blue with x-offset
     ax.scatter(
         female_sample["TotalWorkingYears"] + offset,
         female_sample["Age"] + jitter_y_female,
@@ -114,7 +90,7 @@ def plot_abstract_visualization(male_sample, female_sample, image_path):
         label='Group Blue'
     )
 
-    # Grid lines (shared!)
+    # Shared horizontal grid
     y_min = min(male_sample["Age"].min(), female_sample["Age"].min()) - 2
     y_max = max(male_sample["Age"].max(), female_sample["Age"].max()) + 2
     y_ticks = np.linspace(y_min, y_max, 4)
@@ -123,17 +99,14 @@ def plot_abstract_visualization(male_sample, female_sample, image_path):
     ax.set_xticks([])
     ax.grid(axis='y', linestyle='--', linewidth=1.0, color="#999999", alpha=0.9)
 
-    # Remove frame
     for spine in ax.spines.values():
         spine.set_visible(False)
 
-    # Labels above
     mid_red = male_sample["TotalWorkingYears"].mean()
     mid_blue = female_sample["TotalWorkingYears"].mean() + offset
     ax.text(mid_red, y_max + 1, "Group Red", fontsize=14, fontweight='bold', ha='center', color="#444")
     ax.text(mid_blue, y_max + 1, "Group Blue", fontsize=14, fontweight='bold', ha='center', color="#444")
 
-    # White background
     fig.patch.set_facecolor('white')
     ax.set_facecolor("white")
     ax.margins(x=0.1, y=0.2)
@@ -141,16 +114,17 @@ def plot_abstract_visualization(male_sample, female_sample, image_path):
     plt.savefig(image_path, bbox_inches='tight', dpi=300)
     plt.close()
 
-
-
-
 def save_metadata_list(metadata_list):
-    with open(os.path.join(output_dir, "visuals.json"), "w") as f:
+    with open(os.path.join("static", "visuals.json"), "w") as f:
         json.dump(metadata_list, f, indent=4)
 
 def generate_multiple_samples(df, sample_size=7, iterations=5):
     metadata_list = []
     used_ids = set()
+
+    output_dir = "static"
+    sample_dir = os.path.join(output_dir, "samples")
+    os.makedirs(sample_dir, exist_ok=True)
 
     for i in range(iterations):
         male_sample, female_sample = generate_random_sample(df, used_ids, sample_size)
@@ -163,11 +137,9 @@ def generate_multiple_samples(df, sample_size=7, iterations=5):
         male_sample.to_csv(os.path.join(sample_dir, f"sample_{i+1}_male.csv"), index=False)
         female_sample.to_csv(os.path.join(sample_dir, f"sample_{i+1}_female.csv"), index=False)
 
-
-
         metadata = {
             "visual_path": os.path.basename(image_path),
-            "description": "Sample {} ".format(i+1),
+            "description": f"Sample {i+1}",
             "timestamp": datetime.datetime.now().isoformat()
         }
         metadata_list.append(metadata)
@@ -176,6 +148,6 @@ def generate_multiple_samples(df, sample_size=7, iterations=5):
     save_metadata_list(metadata_list)
 
 def main(sample_size, sample_count):
+    clean_static_folder()
+    df = load_data()
     generate_multiple_samples(df, sample_size=sample_size, iterations=sample_count)
-
-
