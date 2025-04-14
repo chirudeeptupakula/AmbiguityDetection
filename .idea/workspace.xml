@@ -4,15 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="622f4f81-5bd2-4674-896b-8e8e4429ebde" name="Changes" comment="second commit dataset 1 loaded and visualizations created">
-      <change afterPath="$PROJECT_DIR$/database.py" afterDir="false" />
+    <list default="true" id="622f4f81-5bd2-4674-896b-8e8e4429ebde" name="Changes" comment="Working web app and database">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/analysis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/userInputForm.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/userInputForm.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/view_images.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/view_images.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,12 +96,21 @@
       <option name="project" value="LOCAL" />
       <updated>1739259666379</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Working web app and database">
+      <option name="closed" value="true" />
+      <created>1744246061006</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1744246061006</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first commit" />
     <MESSAGE value="second commit dataset 1 loaded and visualizations created" />
-    <option name="LAST_COMMIT_MESSAGE" value="second commit dataset 1 loaded and visualizations created" />
+    <MESSAGE value="Working web app and database" />
+    <option name="LAST_COMMIT_MESSAGE" value="Working web app and database" />
   </component>
 </project>
