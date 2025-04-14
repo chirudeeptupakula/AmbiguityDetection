@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="622f4f81-5bd2-4674-896b-8e8e4429ebde" name="Changes" comment="Working web app and database">
+    <list default="true" id="622f4f81-5bd2-4674-896b-8e8e4429ebde" name="Changes" comment="modified req.txt">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,13 +103,39 @@
       <option name="project" value="LOCAL" />
       <updated>1744246061006</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="gunicorn installed">
+      <option name="closed" value="true" />
+      <created>1744646483796</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1744646483796</updated>
+    </task>
+    <task id="LOCAL-00005" summary="modified req.txt">
+      <option name="closed" value="true" />
+      <created>1744646778707</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1744646778707</updated>
+    </task>
+    <task id="LOCAL-00006" summary="modified req.txt">
+      <option name="closed" value="true" />
+      <created>1744646865140</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1744646865140</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first commit" />
     <MESSAGE value="second commit dataset 1 loaded and visualizations created" />
     <MESSAGE value="Working web app and database" />
-    <option name="LAST_COMMIT_MESSAGE" value="Working web app and database" />
+    <MESSAGE value="gunicorn installed" />
+    <MESSAGE value="modified req.txt" />
+    <option name="LAST_COMMIT_MESSAGE" value="modified req.txt" />
   </component>
 </project>
