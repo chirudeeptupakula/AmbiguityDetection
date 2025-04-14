@@ -18,7 +18,6 @@ flask
 flask_sqlalchemy
 flask_bcrypt
 
-
 Flask
 gunicorn
 
