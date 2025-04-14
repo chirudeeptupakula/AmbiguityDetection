@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="622f4f81-5bd2-4674-896b-8e8e4429ebde" name="Changes" comment="modified req.txt">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="622f4f81-5bd2-4674-896b-8e8e4429ebde" name="Changes" comment="modified db connection 2">
+      <change beforePath="$PROJECT_DIR$/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/database.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,7 +127,23 @@
       <option name="project" value="LOCAL" />
       <updated>1744646865140</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="modified db connection">
+      <option name="closed" value="true" />
+      <created>1744649543438</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1744649543438</updated>
+    </task>
+    <task id="LOCAL-00008" summary="modified db connection 2">
+      <option name="closed" value="true" />
+      <created>1744652850267</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1744652850267</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -136,6 +152,8 @@
     <MESSAGE value="Working web app and database" />
     <MESSAGE value="gunicorn installed" />
     <MESSAGE value="modified req.txt" />
-    <option name="LAST_COMMIT_MESSAGE" value="modified req.txt" />
+    <MESSAGE value="modified db connection" />
+    <MESSAGE value="modified db connection 2" />
+    <option name="LAST_COMMIT_MESSAGE" value="modified db connection 2" />
   </component>
 </project>
