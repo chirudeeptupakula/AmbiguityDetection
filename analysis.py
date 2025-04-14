@@ -67,50 +67,82 @@ def generate_random_sample(df, used_ids, sample_size):
     used_ids.update(female_sample["EmployeeID"].tolist())
 
     return male_sample, female_sample
-
 def plot_abstract_visualization(male_sample, female_sample, image_path):
-    fig, (ax1, ax2) = plt.subplots(1, 2, sharey=True, figsize=(14, 6), constrained_layout=True)
+    import matplotlib.pyplot as plt
+    import numpy as np
 
-    salary_scale_factor = 0.20
-    min_size = 500
+    fig, ax = plt.subplots(figsize=(12, 6))
+
+    salary_scale_factor = 0.25
+    min_size = 200
+
+    # Bubble sizes
     male_sizes = np.maximum(male_sample["MonthlyIncome"] * salary_scale_factor, min_size)
     female_sizes = np.maximum(female_sample["MonthlyIncome"] * salary_scale_factor, min_size)
 
+    # Jitter
     jitter_y_male = np.random.uniform(-0.3, 0.3, size=len(male_sample))
     jitter_y_female = np.random.uniform(-0.3, 0.3, size=len(female_sample))
 
-    ax1.scatter(
+    bright_red = "#ff4c4c"
+    bright_blue = "#4da6ff"
+
+    # Offset for Group Blue so it appears to the right
+    offset = 40
+
+    # Plot Group Red
+    ax.scatter(
         male_sample["TotalWorkingYears"],
         male_sample["Age"] + jitter_y_male,
         s=male_sizes,
-        alpha=0.8,
-        c="blue",
-        edgecolors='black',
-        linewidth=1.5
+        c=bright_red,
+        alpha=0.85,
+        edgecolors='white',
+        linewidth=1.2,
+        label='Group Red'
     )
-    ax1.set_xlim(-5, 65)
-    ax1.set_xticks([])
-    ax1.set_yticks([])
-    for spine in ax1.spines.values():
-        spine.set_visible(False)
 
-    ax2.scatter(
-        female_sample["TotalWorkingYears"],
+    # Plot Group Blue with x-offset
+    ax.scatter(
+        female_sample["TotalWorkingYears"] + offset,
         female_sample["Age"] + jitter_y_female,
         s=female_sizes,
-        alpha=0.8,
-        c="red",
-        edgecolors='black',
-        linewidth=1.5
+        c=bright_blue,
+        alpha=0.85,
+        edgecolors='white',
+        linewidth=1.2,
+        label='Group Blue'
     )
-    ax2.set_xlim(-5, 65)
-    ax2.set_xticks([])
-    ax2.set_yticks([])
-    for spine in ax2.spines.values():
+
+    # Grid lines (shared!)
+    y_min = min(male_sample["Age"].min(), female_sample["Age"].min()) - 2
+    y_max = max(male_sample["Age"].max(), female_sample["Age"].max()) + 2
+    y_ticks = np.linspace(y_min, y_max, 4)
+    ax.set_yticks(y_ticks)
+    ax.set_yticklabels([])
+    ax.set_xticks([])
+    ax.grid(axis='y', linestyle='--', linewidth=1.0, color="#999999", alpha=0.9)
+
+    # Remove frame
+    for spine in ax.spines.values():
         spine.set_visible(False)
 
-    plt.savefig(image_path, bbox_inches='tight')
+    # Labels above
+    mid_red = male_sample["TotalWorkingYears"].mean()
+    mid_blue = female_sample["TotalWorkingYears"].mean() + offset
+    ax.text(mid_red, y_max + 1, "Group Red", fontsize=14, fontweight='bold', ha='center', color="#444")
+    ax.text(mid_blue, y_max + 1, "Group Blue", fontsize=14, fontweight='bold', ha='center', color="#444")
+
+    # White background
+    fig.patch.set_facecolor('white')
+    ax.set_facecolor("white")
+    ax.margins(x=0.1, y=0.2)
+
+    plt.savefig(image_path, bbox_inches='tight', dpi=300)
     plt.close()
+
+
+
 
 def save_metadata_list(metadata_list):
     with open(os.path.join(output_dir, "visuals.json"), "w") as f:

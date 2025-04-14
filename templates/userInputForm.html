@@ -2,64 +2,96 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Sampling Preferences</title>
+    <title>Sampling Preferences - Bias Detection</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background-color: #f4f4f4;
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f5f5f5;
         }
-        form {
-            padding: 30px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            background-color: #fff;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        label {
-            display: block;
-            margin-top: 10px;
+
+        header {
+            background-color: #ff6600;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 28px;
             font-weight: bold;
         }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 80px);
+        }
+
+        .form-box {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 400px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin: 15px 0 5px;
+            font-weight: bold;
+        }
+
         input[type="number"] {
-            width: 80px;
-            padding: 8px;
-            margin-top: 5px;
+            width: 100%;
+            padding: 10px;
             margin-bottom: 15px;
             border: 1px solid #ccc;
             border-radius: 4px;
+            font-size: 14px;
         }
+
         button {
-            padding: 10px 20px;
-            border: none;
-            background-color: #007bff;
+            width: 100%;
+            padding: 12px;
+            background-color: #ff6600;
             color: white;
             font-size: 16px;
+            border: none;
             border-radius: 4px;
             cursor: pointer;
         }
+
         button:hover {
-            background-color: #0056b3;
+            background-color: #e65c00;
         }
     </style>
 </head>
 <body>
 
-<h2>Customize Your Sample Generation</h2>
+<header>
+    DEPARTMENT OF COMPUTER SCIENCE
+</header>
 
-<form action="/generate_samples" method="POST">
-    <label for="sample_size">Sample Size (number of males & females):</label>
-    <input type="number" name="sample_size" id="sample_size" min="1" required>
+<div class="container">
+    <div class="form-box">
+        <h2>Customize Your Sample Generation</h2>
 
-    <label for="num_samples">Number of Samples (images to generate):</label>
-    <input type="number" name="num_samples" id="num_samples" min="1" required>
+        <form action="/generate_samples" method="POST">
+            <label for="sample_size">Sample Size (number of males & females):</label>
+            <input type="number" name="sample_size" id="sample_size" min="1" required>
 
-    <button type="submit">Generate Visualizations</button>
-</form>
+            <label for="num_samples">Number of Samples (images to generate):</label>
+            <input type="number" name="num_samples" id="num_samples" min="1" required>
+
+            <button type="submit">Generate Visualizations</button>
+        </form>
+    </div>
+</div>
 
 </body>
 </html>
