@@ -1,0 +1,21 @@
+EmployeeID,MonthlyIncome,JobRole,TotalWorkingYears,Gender,Age,Education Level
+12664,8107,Finance,1,Male,53,Master’s Degree
+43759,8192,Finance,2,Male,25,Associate Degree
+48624,7426,Healthcare,8,Male,38,PhD
+47349,8792,Healthcare,31,Male,39,Master’s Degree
+26178,10782,Finance,14,Male,56,Associate Degree
+833,5496,Media,4,Male,36,Bachelor’s Degree
+5406,7066,Healthcare,21,Male,30,High School
+2730,7104,Healthcare,31,Male,50,Associate Degree
+67904,9814,Technology,11,Male,46,Bachelor’s Degree
+73736,11486,Technology,4,Male,49,Associate Degree
+54979,6759,Finance,6,Male,56,PhD
+63594,7087,Technology,24,Male,36,High School
+64443,10206,Healthcare,27,Male,37,Bachelor’s Degree
+42720,7816,Healthcare,6,Male,22,Master’s Degree
+4672,6869,Technology,6,Male,57,High School
+28694,9591,Finance,12,Male,21,Associate Degree
+34327,9979,Technology,1,Male,25,Bachelor’s Degree
+31900,7652,Technology,34,Male,45,Master’s Degree
+11283,9442,Technology,31,Male,44,PhD
+34428,7316,Healthcare,16,Male,25,Bachelor’s Degree
