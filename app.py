@@ -38,33 +38,52 @@ def register_form():
 
 @app.route('/register', methods=['POST'])
 def register():
-    data = request.form
+    try:
+        # 🔍 Print incoming form data for debugging
+        print("➡️ Received form data:", request.form)
 
-    with DBSession(bind=engine) as db:
-        query_check = text("SELECT * FROM users WHERE username = :u OR email = :e")
-        exists = db.execute(query_check, {"u": data['username'], "e": data['email']}).fetchone()
+        # Retrieve form data safely
+        data = request.form.to_dict()
 
-        if exists:
-            flash("Username or email already exists!", "warning")
-            return redirect(url_for('register_form'))
+        required_fields = ['username', 'password', 'first_name', 'last_name', 'email', 'role', 'department']
+        for field in required_fields:
+            if field not in data or not data[field].strip():
+                flash(f"Missing required field: {field}", "danger")
+                return redirect(url_for('register_form'))
 
-        query = text("""
-            INSERT INTO users (username, password, first_name, last_name, email, role, department)
-            VALUES (:u, :p, :f, :l, :e, :r, :d)
-        """)
-        db.execute(query, {
-            "u": data['username'],
-            "p": data['password'],  # In production, use hashed passwords
-            "f": data['first_name'],
-            "l": data['last_name'],
-            "e": data['email'],
-            "r": data['role'],
-            "d": data['department']
-        })
-        db.commit()
+        with DBSession(bind=engine) as db:
+            # 🔍 Check if user already exists
+            query_check = text("SELECT * FROM users WHERE username = :u OR email = :e")
+            exists = db.execute(query_check, {"u": data['username'], "e": data['email']}).fetchone()
 
-    flash("Registration successful! Please log in.", "success")
-    return redirect(url_for('index'))
+            if exists:
+                flash("Username or email already exists!", "warning")
+                return redirect(url_for('register_form'))
+
+            # ✅ Insert user data
+            query = text("""
+                INSERT INTO users (username, password, first_name, last_name, email, role, department)
+                VALUES (:u, :p, :f, :l, :e, :r, :d)
+            """)
+            db.execute(query, {
+                "u": data['username'],
+                "p": data['password'],  # 🔐 In production, use hashed passwords!
+                "f": data['first_name'],
+                "l": data['last_name'],
+                "e": data['email'],
+                "r": data['role'],
+                "d": data['department']
+            })
+            db.commit()
+
+        flash("Registration successful! Please log in.", "success")
+        return redirect(url_for('index'))
+
+    except Exception as e:
+        print("🔥 Registration error:", e)
+        flash("An error occurred during registration. Please try again.", "danger")
+        return redirect(url_for('register_form'))
+
 
 @app.route('/dashboard')
 def dashboard():

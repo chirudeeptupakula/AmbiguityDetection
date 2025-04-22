@@ -1,0 +1,6 @@
+Cluster,Male_Mean,Female_Mean,P_Value,Statistically_Significant,N_Male,N_Female
+Full_Dataset,7298.94,7306.61,0.66457,No,32739,26859
+Low_Low,7297.83,7317.38,0.52533,No,10724,8731
+Low_High,7347.38,7312.02,0.41385,No,5576,4571
+High_Low,7338.0,7239.66,0.03214,Yes,4899,4039
+High_High,7259.98,7322.56,0.03557,Yes,11540,9518
