@@ -49,7 +49,7 @@ def register():
             return redirect(url_for('register_form'))
 
         query = text("""
-            INSERT INTO users (username, password, firstname, lastname, email, role, department)
+            INSERT INTO users (username, password, first_name, last_name, email, role, department)
             VALUES (:u, :p, :f, :l, :e, :r, :d)
         """)
         db.execute(query, {
