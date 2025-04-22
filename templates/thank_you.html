@@ -1,0 +1,38 @@
+<!-- templates/thank_you.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Thank You</title>
+    <style>
+        .center-box {
+            margin: 100px auto;
+            width: 80%;
+            text-align: center;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 1.1rem;
+            background-color: #ff6600;
+            border: none;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #e65500;
+        }
+    </style>
+</head>
+<body>
+<div class="center-box">
+    <h1>🎉 Thank you for your response!</h1>
+    <p>Would you like to submit another response or go to the dashboard?</p>
+    <a href="/dashboard"><button class="btn">Submit Another</button></a>
+    <a href="/dashboard"><button class="btn">Go to Dashboard</button></a>
+</div>
+</body>
+</html>

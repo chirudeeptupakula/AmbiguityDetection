@@ -126,7 +126,7 @@
 <div class="container">
     <h2>Generated Visualizations</h2>
 
-    <form action="{{ url_for('submit_response') }}" method="POST">
+    <form method="POST" action="/submit_response">
         {% for image in images %}
         <div class="image-container">
             <img src="{{ url_for('static', filename=image.visual_path) }}" alt="Sample Image">
