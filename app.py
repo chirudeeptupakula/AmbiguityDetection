@@ -55,8 +55,8 @@ def register():
         db.execute(query, {
             "u": data['username'],
             "p": data['password'],  # In production, use hashed passwords
-            "f": data['firstname'],
-            "l": data['lastname'],
+            "f": data['first_name'],
+            "l": data['last_name'],
             "e": data['email'],
             "r": data['role'],
             "d": data['department']
