@@ -20,4 +20,4 @@ flask_bcrypt
 
 Flask
 gunicorn
-
+dotenv
