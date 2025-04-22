@@ -6,7 +6,9 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 db_url = os.environ.get(
     "DATABASE_URL",
 
-    "postgresql://postgres:1306@localhost:5432/etl_pipeline_db"
+   # "postgresql://postgres:1306@localhost:5432/etl_pipeline_db"
+    "postgresql://chiru1306:g6CkpnXoDupva30fuXK2MtL2yBCSCSYn@dpg-cvujh53uibrs738ascn0-a:5432/webapp_db_recf
+
 
 )
 
