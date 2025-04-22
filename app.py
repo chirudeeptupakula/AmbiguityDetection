@@ -49,14 +49,14 @@ def register():
             return redirect(url_for('register_form'))
 
         query = text("""
-            INSERT INTO users (username, password, firstname, lastname, email, role, department)
+            INSERT INTO users (username, password, first_name, last_name, email, role, department)
             VALUES (:u, :p, :f, :l, :e, :r, :d)
         """)
         db.execute(query, {
             "u": data['username'],
             "p": data['password'],  # In production, use hashed passwords
-            "f": data['firstname'],
-            "l": data['lastname'],
+            "f": data['first_name'],
+            "l": data['last_name'],
             "e": data['email'],
             "r": data['role'],
             "d": data['department']
