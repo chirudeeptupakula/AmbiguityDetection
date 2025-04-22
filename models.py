@@ -8,6 +8,12 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     username = Column(String(80), unique=True, nullable=False)
     password = Column(String(120), nullable=False)
+    first_name = Column(String(80))
+    last_name = Column(String(80))
+    email = Column(String(120), unique=True)
+    role = Column(String(50))
+    department = Column(String(100))
+
 
 class UserSession(Base):
     __tablename__ = 'user_sessions'

@@ -5,7 +5,9 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 # Try to load DATABASE_URL from environment, fallback to local for development
 db_url = os.environ.get(
     "DATABASE_URL",
-   # "postgresql://postgres:1234@localhost:5432/etl_pipeline_db"
+
+    "postgresql://postgres:1306@localhost:5432/etl_pipeline_db"
+
 )
 
 engine = create_engine(db_url)

@@ -1,5 +1,5 @@
 from app import app, db
-from flask import request, jsonify, render_template
+from flask import request, jsonify, render_template, redirect, url_for
 from models import User, UserSession
 import analysis  # call analysis.py from here
 
@@ -9,11 +9,22 @@ def home():
 
 @app.route('/register', methods=['POST'])
 def register():
-    data = request.json
-    new_user = User(username=data['username'], password=data['password'])
+    data = request.form
+
+    new_user = User(
+        username=data['username'],
+        password=data['password'],
+        first_name=data['firstname'],
+        last_name=data['lastname'],
+        email=data['email'],
+        role=data['role'],
+        department=data['department']
+    )
+
     db.session.add(new_user)
     db.session.commit()
-    return jsonify({"message": "User registered successfully!"})
+
+    return redirect(url_for('home'))  # or 'login' or 'dashboard'
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -42,3 +53,18 @@ def generate_samples():
     db.session.add(session)
     db.session.commit()
     return jsonify({"message": "Samples generated!"})
+
+
+# ✅ New route to handle submitted responses
+@app.route('/submit_responses', methods=['POST'])
+def submit_responses():
+    data = request.form  # Assuming this comes from HTML form
+    print("Received responses:", data)
+
+    return redirect(url_for('thank_you'))
+
+
+# ✅ New route to render thank-you page
+@app.route('/thank_you')
+def thank_you():
+    return render_template("thank_you.html")

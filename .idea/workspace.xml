@@ -4,8 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="622f4f81-5bd2-4674-896b-8e8e4429ebde" name="Changes" comment="modified db connection 2">
-      <change beforePath="$PROJECT_DIR$/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/database.py" afterDir="false" />
+    <list default="true" id="622f4f81-5bd2-4674-896b-8e8e4429ebde" name="Changes" comment="working web app">
+      <change afterPath="$PROJECT_DIR$/templates/thank_you.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/samples/sample_1_female.csv" beforeDir="false" afterPath="$PROJECT_DIR$/static/samples/sample_1_female.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/samples/sample_1_male.csv" beforeDir="false" afterPath="$PROJECT_DIR$/static/samples/sample_1_male.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/visual_20250421_150751_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/visuals.json" beforeDir="false" afterPath="$PROJECT_DIR$/static/visuals.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/view_images.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/view_images.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,8 +25,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -45,7 +55,10 @@
     &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
     &quot;Python.analysis.executor&quot;: &quot;Run&quot;,
     &quot;Python.app.executor&quot;: &quot;Run&quot;,
+    &quot;Python.cluster.executor&quot;: &quot;Run&quot;,
+    &quot;Python.database.executor&quot;: &quot;Run&quot;,
     &quot;Python.etl_pipeline.executor&quot;: &quot;Run&quot;,
+    &quot;Python.generate_cluster_visuals.executor&quot;: &quot;Run&quot;,
     &quot;Python.ml_train_and_evaluate.executor&quot;: &quot;Run&quot;,
     &quot;Python.start_server.executor&quot;: &quot;Run&quot;,
     &quot;Python.visualize_results.executor&quot;: &quot;Run&quot;,
@@ -143,7 +156,23 @@
       <option name="project" value="LOCAL" />
       <updated>1744652850267</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="modified db connection 2">
+      <option name="closed" value="true" />
+      <created>1744653055485</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1744653055485</updated>
+    </task>
+    <task id="LOCAL-00010" summary="working web app">
+      <option name="closed" value="true" />
+      <created>1745266514374</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1745266514374</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -154,6 +183,7 @@
     <MESSAGE value="modified req.txt" />
     <MESSAGE value="modified db connection" />
     <MESSAGE value="modified db connection 2" />
-    <option name="LAST_COMMIT_MESSAGE" value="modified db connection 2" />
+    <MESSAGE value="working web app" />
+    <option name="LAST_COMMIT_MESSAGE" value="working web app" />
   </component>
 </project>
