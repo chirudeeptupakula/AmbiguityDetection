@@ -85,7 +85,7 @@
 <body>
 <div class="register-box">
     <h2>Create New Account</h2>
-    <form method="POST" action="/register">
+    <form method="POST" action="/register" enctype="application/x-www-form-urlencoded" name="registerForm" autocomplete="off">
         <div>
             <label>Username:</label>
             <input type="text" name="username" required>
@@ -96,11 +96,11 @@
         </div>
         <div>
             <label>First Name:</label>
-            <input type="text" name="firstname" required>
+            <input type="text" name="first_name" required>
         </div>
         <div>
             <label>Last Name:</label>
-            <input type="text" name="lastname" required>
+            <input type="text" name="last_name" required>
         </div>
         <div>
             <label>Email:</label>
