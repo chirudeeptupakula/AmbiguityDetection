@@ -30,7 +30,7 @@ class ETLPipeline:
         sheet_name = self.config.get("sheet_name", None)  # Get sheet_name if exists
 
         try:
-            print(f"📂 Extracting data from {file_path}...")
+            print(f" Extracting data from {file_path}...")
 
             # Determine file format
             if file_path.endswith('.csv'):
@@ -38,14 +38,14 @@ class ETLPipeline:
             elif file_path.endswith(('.xlsx', '.xls')):
                 df = pd.read_excel(file_path, sheet_name=sheet_name, engine='openpyxl')  # Read Excel
             else:
-                raise ValueError("❌ Unsupported file format. Only CSV and Excel files are supported.")
+                raise ValueError(" Unsupported file format. Only CSV and Excel files are supported.")
 
             print(f"✅ Successfully extracted data from {file_path}")
             logging.info(f"Extracted data from {file_path}")
             return df
 
         except Exception as e:
-            print(f"❌ Error in Extraction: {e}")
+            print(f" Error in Extraction: {e}")
             logging.error(f"Error in Extraction: {e}")
             return None
 
@@ -68,7 +68,7 @@ class ETLPipeline:
         for col in df.select_dtypes(include=['object']).columns:
             df[col] = df[col].str.strip()
 
-        print(f"✅ Transformed Data: {df.shape[0]} rows, {df.shape[1]} columns (All null values removed)")
+        print(f" Transformed Data: {df.shape[0]} rows, {df.shape[1]} columns (All null values removed)")
         logging.info(f"Transformed Data: {df.shape[0]} rows, {df.shape[1]} columns")
         return df
 
@@ -81,18 +81,18 @@ class ETLPipeline:
 
         df.to_sql(table_name, self.engine, if_exists='replace', index=False)
 
-        print(f"✅ Data successfully loaded into {table_name}")
+        print(f"Data successfully loaded into {table_name}")
         logging.info(f"Data successfully loaded into {table_name}")
 
     def run_pipeline(self):
         """Run ETL pipeline for the specified dataset."""
-        print("🚀 Starting ETL Pipeline...")
+        print("Starting ETL Pipeline...")
         logging.info("Starting ETL Pipeline...")
 
         # Extract
         df = self.extract()
         if df is None:
-            print("❌ Extraction failed. Terminating pipeline.")
+            print(" Extraction failed. Terminating pipeline.")
             logging.error("Extraction failed. Terminating pipeline.")
             return
 
@@ -102,7 +102,7 @@ class ETLPipeline:
         # Load
         self.load(df)
 
-        print("✅ ETL pipeline completed successfully!")
+        print("ETL pipeline completed successfully!")
         logging.info("ETL pipeline completed successfully!")
 
 

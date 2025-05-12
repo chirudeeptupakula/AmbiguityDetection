@@ -47,7 +47,7 @@ def generate_random_sample(df, used_ids, sample_size):
 
 def plot_abstract_visualization(male_sample, female_sample, image_path):
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(22, 12), sharey=True)
-    plt.subplots_adjust(wspace=0.2)  # 🔥 Add spacing between the two graphs
+    plt.subplots_adjust(wspace=0.2)  #  Add spacing between the two graphs
 
 
     salary_scale_factor = 1
@@ -80,7 +80,7 @@ def plot_abstract_visualization(male_sample, female_sample, image_path):
     ax1.set_title("Group Red", fontsize=25, fontweight='bold', pad=10)
     ax1.set_xlim(x_min, x_max)
     ax1.set_ylim(y_min, y_max)
-    ax1.set_xticks([])  # ❌ remove x-axis scale
+    ax1.set_xticks([])  #  remove x-axis scale
     ax1.set_yticklabels([])
     ax1.grid(axis='y', linestyle='--', linewidth=1.0, color="#999999", alpha=0.9)
     ax1.set_facecolor("white")
@@ -100,7 +100,7 @@ def plot_abstract_visualization(male_sample, female_sample, image_path):
     ax2.set_title("Group Blue", fontsize=25, fontweight='bold', pad=10)
     ax2.set_xlim(x_min, x_max)
     ax2.set_ylim(y_min, y_max)
-    ax2.set_xticks([])  # ❌ remove x-axis scale
+    ax2.set_xticks([])  #  remove x-axis scale
     ax2.set_yticklabels([])
     ax2.grid(axis='y', linestyle='--', linewidth=1.0, color="#999999", alpha=0.9)
     ax2.set_facecolor("white")

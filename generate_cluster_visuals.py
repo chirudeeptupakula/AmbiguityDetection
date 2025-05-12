@@ -113,7 +113,7 @@ def generate_images_per_cluster(cluster_name, num_images=10, sample_size=10):
             "female_ids": sample_female['EmployeeID'].tolist()
         }
 
-# ✅ NEW FUNCTION — replaces merged plot with 100 male + 100 female full dataset sample
+# NEW FUNCTION — replaces merged plot with 100 male + 100 female full dataset sample
 def generate_full_sample_plot():
     with engine.connect() as conn:
         df = pd.read_sql("SELECT * FROM cleaned_salary_data2", conn)

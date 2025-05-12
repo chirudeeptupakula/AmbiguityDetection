@@ -55,7 +55,7 @@ def generate_samples():
     return jsonify({"message": "Samples generated!"})
 
 
-# ✅ New route to handle submitted responses
+#  New route to handle submitted responses
 @app.route('/submit_responses', methods=['POST'])
 def submit_responses():
     data = request.form  # Assuming this comes from HTML form
@@ -64,7 +64,7 @@ def submit_responses():
     return redirect(url_for('thank_you'))
 
 
-# ✅ New route to render thank-you page
+# New route to render thank-you page
 @app.route('/thank_you')
 def thank_you():
     return render_template("thank_you.html")

@@ -4,9 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="622f4f81-5bd2-4674-896b-8e8e4429ebde" name="Changes" comment="changed firstname and last name">
+    <list default="true" id="622f4f81-5bd2-4674-896b-8e8e4429ebde" name="Changes" comment="updated register">
+      <change afterPath="$PROJECT_DIR$/bias_detection.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/dataset2/cleaned_salary_data2.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/evaluate_survey_vs_ttests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/upload_to_render.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/csv-editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/csv-editor.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/analysis.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cluster_ttest_results.csv" beforeDir="false" afterPath="$PROJECT_DIR$/cluster_ttest_results.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/dataset2/test.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/dataset2/test.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/dataset2/train.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/dataset2/train.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/etl_pipeline.py" beforeDir="false" afterPath="$PROJECT_DIR$/etl_pipeline.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generate_cluster_visuals.py" beforeDir="false" afterPath="$PROJECT_DIR$/generate_cluster_visuals.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/setup_db.py" beforeDir="false" afterPath="$PROJECT_DIR$/setup_db.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/statistical_bias_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/statistical_bias_analysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/register.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,32 +59,40 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "Python.analysis.executor": "Run",
-    "Python.app.executor": "Run",
-    "Python.cluster.executor": "Run",
-    "Python.database.executor": "Run",
-    "Python.etl_pipeline.executor": "Run",
-    "Python.generate_cluster_visuals.executor": "Run",
-    "Python.ml_train_and_evaluate.executor": "Run",
-    "Python.setup_db.executor": "Run",
-    "Python.start_server.executor": "Run",
-    "Python.statistical_bias_analysis.executor": "Run",
-    "Python.visualize_results.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "dataset2",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/chiru/PycharmProjects/PythonCourseUdemy",
-    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;Python.analysis.executor&quot;: &quot;Run&quot;,
+    &quot;Python.app.executor&quot;: &quot;Run&quot;,
+    &quot;Python.bias_detection.executor&quot;: &quot;Run&quot;,
+    &quot;Python.cluster.executor&quot;: &quot;Run&quot;,
+    &quot;Python.database.executor&quot;: &quot;Run&quot;,
+    &quot;Python.etl_pipeline.executor&quot;: &quot;Run&quot;,
+    &quot;Python.evaluate_survey_vs_ttests.executor&quot;: &quot;Run&quot;,
+    &quot;Python.generate_cluster_visuals.executor&quot;: &quot;Run&quot;,
+    &quot;Python.ml_train_and_evaluate.executor&quot;: &quot;Run&quot;,
+    &quot;Python.setup_db.executor&quot;: &quot;Run&quot;,
+    &quot;Python.start_server.executor&quot;: &quot;Run&quot;,
+    &quot;Python.statistical_bias_analysis.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test.executor&quot;: &quot;Run&quot;,
+    &quot;Python.upload_to_render.executor&quot;: &quot;Run&quot;,
+    &quot;Python.visualize_results.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dataset2&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/chiru/PycharmProjects/AmbiguityDetection/data/dataset2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\chiru\PycharmProjects\AmbiguityDetection\data\dataset2" />
       <recent name="C:\Users\chiru\PycharmProjects\AmbiguityDetection\data\dataset1" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\chiru\PycharmProjects\AmbiguityDetection\data\dataset2" />
+      <recent name="C:\Users\chiru\PycharmProjects\AmbiguityDetection\data" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -206,7 +231,15 @@
       <option name="project" value="LOCAL" />
       <updated>1745353215218</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="updated register">
+      <option name="closed" value="true" />
+      <created>1745353441149</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1745353441149</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -233,6 +266,7 @@
     <MESSAGE value="working web app and the added thankyou page 2" />
     <MESSAGE value="working web app and the added thankyou page 3" />
     <MESSAGE value="changed firstname and last name" />
-    <option name="LAST_COMMIT_MESSAGE" value="changed firstname and last name" />
+    <MESSAGE value="updated register" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated register" />
   </component>
 </project>

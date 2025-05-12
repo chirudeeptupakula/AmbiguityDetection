@@ -39,8 +39,8 @@ def register_form():
 @app.route('/register', methods=['POST'])
 def register():
     try:
-        # 🔍 Print incoming form data for debugging
-        print("➡️ Received form data:", request.form)
+        #  Print incoming form data for debugging
+        print("Received form data:", request.form)
 
         # Retrieve form data safely
         data = request.form.to_dict()
@@ -52,7 +52,7 @@ def register():
                 return redirect(url_for('register_form'))
 
         with DBSession(bind=engine) as db:
-            # 🔍 Check if user already exists
+            #  Check if user already exists
             query_check = text("SELECT * FROM users WHERE username = :u OR email = :e")
             exists = db.execute(query_check, {"u": data['username'], "e": data['email']}).fetchone()
 
@@ -60,14 +60,14 @@ def register():
                 flash("Username or email already exists!", "warning")
                 return redirect(url_for('register_form'))
 
-            # ✅ Insert user data
+            # Insert user data
             query = text("""
                 INSERT INTO users (username, password, first_name, last_name, email, role, department)
                 VALUES (:u, :p, :f, :l, :e, :r, :d)
             """)
             db.execute(query, {
                 "u": data['username'],
-                "p": data['password'],  # 🔐 In production, use hashed passwords!
+                "p": data['password'],  # In production, use hashed passwords!
                 "f": data['first_name'],
                 "l": data['last_name'],
                 "e": data['email'],
@@ -80,7 +80,7 @@ def register():
         return redirect(url_for('index'))
 
     except Exception as e:
-        print("🔥 Registration error:", e)
+        print(" Registration error:", e)
         flash("An error occurred during registration. Please try again.", "danger")
         return redirect(url_for('register_form'))
 
